@@ -1,0 +1,65 @@
+clear
+close all,
+clc;
+[pic,map]=imread('C:\Users\Dell\Desktop\third assignment\lena.bmp');
+[pic1,map1]=imread('C:\Users\Dell\Desktop\third assignment\lena1.bmp');
+[pic2,map2]=imread('C:\Users\Dell\Desktop\third assignment\lena2.bmp');
+[pic3,map3]=imread('C:\Users\Dell\Desktop\third assignment\lena3.bmp');
+pic=ind2gray(pic,map);
+pic1=ind2gray(pic1,map1);
+pic2=ind2gray(pic2,map2);
+pic3=ind2gray(pic3,map3);
+m=size(pic,1);
+n=size(pic,2);
+m1=size(pic1,1);
+n1=size(pic1,2);
+m2=size(pic2,1);
+n2=size(pic2,2);
+h=zeros(1,256);
+for i=1:m
+    for j=1:n
+        h(1,pic(i,j)+1)=h(1,pic(i,j)+1)+1;
+    end
+end
+h1=zeros(1,256);
+for i=1:m1
+    for j=1:n1
+        h1(1,pic1(i,j)+1)=h1(1,pic1(i,j)+1)+1;
+    end
+end
+h2=zeros(1,256);
+for i=1:m
+    for j=1:n
+        h2(1,pic2(i,j)+1)=h2(1,pic2(i,j)+1)+1;
+    end
+end
+h3=zeros(1,256);
+for i=1:m
+    for j=1:n
+        h3(1,pic2(i,j)+1)=h3(1,pic2(i,j)+1)+1;
+    end
+end
+subplot(4,2,1)
+imshow(pic)
+title('原图')
+subplot(4,2,2)
+bar(0:255,h)
+title('原图直方图')
+subplot(4,2,3)
+imshow(pic1)
+title('图一')
+subplot(4,2,4)
+bar(0:255,h1)
+title('图一直方图')
+subplot(4,2,5)
+imshow(pic2)
+title('图二')
+subplot(4,2,6)
+bar(0:255,h2)
+title('图二直方图')
+subplot(4,2,7)
+imshow(pic3)
+title('图三')
+subplot(4,2,8)
+bar(0:255,h3)
+title('图三直方图')

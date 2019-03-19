@@ -1,0 +1,16 @@
+clear
+close all,
+clc;
+[pic,map]=imread('C:\Users\Dell\Desktop\third assignment\elain.bmp');
+pic=ind2gray(pic,map);
+m=size(pic,1);
+n=size(pic,2);
+for i=1:m-6
+    for j=1:n-6
+       k=histeq(pic(i:i+6,j:j+6));
+       y=sort(k);
+       newpic(i,j)=y(4,4);
+    end
+end
+newpic=uint8(newpic);
+imshow(newpic)

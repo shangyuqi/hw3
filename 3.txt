@@ -1,0 +1,90 @@
+clear
+close all,
+clc;
+[pic,map]=imread('C:\Users\Dell\Desktop\third assignment\lena1.bmp');
+pic=ind2gray(pic,map);
+newpic=pic;
+m=size(pic,1);
+n=size(pic,2);
+h=zeros(1,256);
+ns=zeros(1,256);
+p=ns;
+for i=1:m
+    for j=1:n
+        h(1,pic(i,j)+1)=h(1,pic(i,j)+1)+1;
+    end
+end
+for i=1:256
+    ns(i)=h(i)/m/n;
+end
+p(1)=ns(1)*255;
+for i=2:256
+    p(i)=p(i-1)+ns(i)*255;
+end
+for i=1:m
+    for j=1:n
+        newpic(i,j)=p(pic(i,j)+1);
+    end
+end
+h=zeros(1,256);
+ns=zeros(1,256);
+p=ns;
+for i=1:m
+    for j=1:n
+        h(1,newpic(i,j)+1)=h(1,newpic(i,j)+1)+1;
+    end
+end
+for i=1:256
+    ns(i)=h(i)/m/n;
+end
+p(1)=ns(1)*255;
+for i=2:256
+    p(i)=p(i-1)+ns(i)*255;
+end
+
+[pic1,map1]=imread('C:\Users\Dell\Desktop\third assignment\lena.bmp');
+pic1=ind2gray(pic1,map1);
+newpic1=pic1;
+m1=size(pic1,1);
+n1=size(pic1,2);
+h1=zeros(1,256);
+ns1=zeros(1,256);
+p1=ns1;
+pzong=p1;
+for i=1:m1
+    for j=1:n1
+        h1(1,pic1(i,j)+1)=h1(1,pic1(i,j)+1)+1;
+    end
+end
+for i=1:256
+    ns1(i)=h1(i)/m1/n1;
+end
+p1(1)=ns1(1)*255;
+for i=2:256
+    p1(i)=p1(i-1)+ns1(i)*255;
+end
+for i=1:256
+    for j=1:256
+        if(p1(j)>=p(i))
+            pzong(i)=p1(j);
+            break;
+        end
+    end
+end
+for i=1:m
+    for j=1:n
+        newpic1(i,j)=pzong(pic1(i,j)+1);
+    end
+end
+subplot(2,2,1)
+imshow(pic1)
+title('原图')
+subplot(2,2,2)
+imhist(pic1)
+title('原图直方图')
+subplot(2,2,3)
+imshow(newpic1)
+title('图一匹配')
+subplot(2,2,4)
+imhist(newpic1)
+title('图一匹配直方图')

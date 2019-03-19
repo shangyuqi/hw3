@@ -1,0 +1,42 @@
+clear
+close all,
+clc;
+[pic,map]=imread('C:\Users\Dell\Desktop\third assignment\woman.bmp');
+pic=ind2gray(pic,map);
+huidu=imhist(pic);
+pic=double(pic);
+newpic=pic;
+m=size(pic,1);
+n=size(pic,2);
+meanall=mean(mean(pic));
+cha=2;
+meanp1=meanall;
+meanp2=0;
+while(cha>=0.1)
+    meanl=0;meanm=0;
+    countl=0;countm=0;
+    for i=1:floor(meanp1)
+        meanl=meanl+i*huidu(i);
+        countl=huidu(i)+countl;
+    end
+    for i=floor(meanp1)+1:256
+        meanm=meanm+i*huidu(i);
+        countm=countm+huidu(i);
+    end
+    meanl=meanl/countl;
+    meanm=meanm/countm;
+    meanp2=meanp1;
+    meanp1=(meanl+meanm)/2;
+    cha=abs(meanp1-meanp2);
+end
+for i=1:m
+    for j=1:n
+        if(pic(i,j)<=meanp1)
+            newpic(i,j)=0;
+        else
+            newpic(i,j)=255;
+        end
+    end
+end
+newpic=uint8(newpic);
+imshow(newpic)
